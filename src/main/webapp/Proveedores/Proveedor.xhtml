@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./newTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+        <p:outputLabel value="Tabla de Proveedores" style="margin-left:  35%;font-size: 40px"/>
+        <p:growl id="MSJ"/>
+
+        <h:form id="d">
+
+            <p:panelGrid columns="3">
+
+                <p:commandButton  value="+" 
+                                  oncomplete="PF('proveedor').show()" 
+                                  styleClass="btnEditar" 
+                                  onclick="reiniciarTema(); editarMSJ()" 
+                                  style="margin-right:  99%"/>
+
+            </p:panelGrid>
+        </h:form>
+
+        <!---->
+        <p:dialog widgetVar="proveedor" 
+                  modal="true" 
+                  showEffect="clip" 
+                  resizable="false" 
+                  header="proveedor">
+            <p:ajax event="close" 
+                    listener="#{ProveedorController.limpiar()}" 
+                    update=":da" />
+            <h:form id='da'>
+                <p:panelGrid columns="2" >
+                    <p:outputLabel value="Nombre" for="txtNombre"/>
+                    <p:inputText id="txtNombre" value="#{ProveedorController.proveedor.nombre}"/>
+                    <p:outputLabel value="Direccion" for="txtDireccion"/>
+                    <p:inputText id="txtDireccion" value="#{ProveedorController.proveedor.direccion}"/>
+                    <p:outputLabel value="Telefono" for="txtTelefono"/>
+                    <p:inputText id="txtTelefono" value="#{ProveedorController.proveedor.telefono}" />
+                    <p:outputLabel value="Correo" for="txtCorreo"/>
+                    <p:inputText id="txtCorreo" value="#{ProveedorController.proveedor.correo}" required="true"/>
+                    <p:commandButton value="Guardar" 
+                                     actionListener="#{ProveedorController.insertar()}"
+                                     update=":Datos da :MSJ" 
+                                     oncomplete="PF('proveedor').hide()" 
+                                     icon="ui-icon-mail-open" 
+                                     rendered="#{ProveedorController.proveedor.idproveedor == 0}"  
+                                     onclick="reiniciarTema();editarMSJ()"/>
+                    <p:commandButton value="Editar" 
+                                     actionListener="#{ProveedorController.editar()}"
+                                     update=":Datos da :MSJ" 
+                                     oncomplete="PF('proveedor').hide()" 
+                                     rendered="#{ProveedorController.proveedor.idproveedor != 0}"
+                                     onclick="reiniciarTema(); editarMSJ()"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <h:form id="Datos">
+
+            <p:dataTable value="#{ProveedorController.listaProveedor}" var="p">
+                <p:column headerText="ID">
+                    <h:outputText value="#{p.idproveedor}"/>
+                </p:column>
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{p.nombre}" />
+                </p:column>
+                <p:column headerText="Direccion">
+                    <h:outputText value="#{p.direccion}" />
+                </p:column>
+                <p:column headerText="Telefono">
+                    <h:outputText value="#{p.telefono}"/>
+                </p:column>
+                <p:column headerText="Correo">
+                    <h:outputText value="#{p.correo}"/>
+                </p:column>
+                <p:column headerText="Editar">
+                    <p:commandButton value="Modificar" 
+                                     actionListener="#{ProveedorController.leerid(p)}"
+                                     update=":da" 
+                                     oncomplete="PF('proveedor').show()" 
+                                     styleClass="btnEditar" 
+                                     onclick="reiniciarTema();editarMSJ()"/>
+                </p:column>
+                <p:column headerText="Eliminar">
+                    <p:commandButton value="Eliminar" 
+                                     actionListener="#{ProveedorController.eliminar(p)}"
+                                     update=":Datos :MSJ"
+                                     onclick="reiniciarTema();editarMSJ()" 
+                                     styleClass="btnEliminar"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

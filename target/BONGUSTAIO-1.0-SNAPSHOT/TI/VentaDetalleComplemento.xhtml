@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./newTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+
+    <ui:define name="content"  >
+
+
+        <p:growl id="MSJ"/>
+
+        <h:form id="d">
+
+            <p:panelGrid columns="3">
+
+                <p:commandButton  value="+" oncomplete="PF('categoria').show()" 
+                                  styleClass="btnEditar" onclick="reiniciarTema();editarMSJ()" style="margin-right:  99%"/>
+
+            </p:panelGrid>
+        </h:form>
+
+        <!---->
+        <p:dialog widgetVar="categoria" modal="false" showEffect="clip" resizable="false" header="Categoria">
+            <p:ajax event="close"  listener="#{ventaDetalleComplementoController.limpiar()}"  update=":da" />
+            <h:form id='da'>
+
+                <p:panelGrid columns="2" >
+
+                    <p:outputLabel value="Selecione el Plato" for="cmbPlato"/>
+                    <p:selectOneMenu id="cmbPlato" value="#{ventaDetalleComplementoController.vdetalle.idventa_detalle}">
+                        <f:selectItem itemLabel="seleccione el plato" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{plato_CompletoController.listapcompleto}" var="vend" itemLabel="#{vend.nombre}" itemValue="#{vend.idplato_completo}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Selecione el complemento " for="cmbComplemento"/>
+                    <p:selectOneMenu id="cmbComplemento" value="#{ventaDetalleComplementoController.complemento.idcomplemento}">
+                        <f:selectItem itemLabel="seleccione el complemento" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{complementoController.listaComplemento}" var="con" itemLabel="#{con.nombre}" itemValue="#{con.idcomplemento}" />
+                    </p:selectOneMenu>
+
+
+
+                    <p:outputLabel value="Cantidad" for="txtCantidad"/>
+                    <p:inputText id="txtCantidad"  value="#{ventaDetalleComplementoController.vdcomplement.cantidad}"/>
+
+                    <p:commandButton value="Guardar" actionListener="#{ventaDetalleComplementoController.insertar()}"
+                                     rendered="#{ventaDetalleComplementoController.vdcomplement.idventaDetalle_complemento == 0}"
+                                     update=":Datos da :MSJ" oncomplete="PF('categoria').hide()" icon="ui-icon-mail-open" 
+                                     onclick="reiniciarTema();editarMSJ()"/>
+                    
+                    <p:commandButton value="Editar" actionListener="#{ventaDetalleComplementoController.modificar()}"
+                                     rendered="#{ventaDetalleComplementoController.vdcomplement.idventaDetalle_complemento !=0}"
+                                     update=":Datos da :MSJ" oncomplete="PF('categoria').hide()" 
+
+                                     onclick="reiniciarTema();editarMSJ()"/>
+
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <h:form id="Datos">
+
+            <p:dataTable  value="#{ventaDetalleComplementoController.listavdcomplemento}" var="vdc">
+                <p:column headerText="ID">
+                    <h:outputText value="#{vdc.idventaDetalle_complemento}" />
+                </p:column>
+                <p:column headerText="Nombre de la venta ">
+                    <h:outputText value="#{vdc.idventa_detalle.idplato_completo.nombre}" />
+                </p:column>
+                  <p:column headerText="Nombre del complemento ">
+                      <h:outputText value="#{vdc.idcomplemento.nombre}" />
+                </p:column>
+                
+                 <p:column headerText="Cantidad ">
+                     <h:outputText value="#{vdc.cantidad}" />
+                </p:column>
+                
+                
+
+                <p:column headerText="Editar">
+                    <p:commandButton value="Modificar" actionListener="#{ventaDetalleComplementoController.leerid(vdc)}"
+                                     update=":da" oncomplete="PF('categoria').show()" styleClass="btnEditar" 
+                                     onclick="reiniciarTema();editarMSJ()" />
+                </p:column>
+                <p:column headerText="Eliminar">
+                    <p:commandButton value="Eliminar" actionListener="#{ventaDetalleComplementoController.eliminar(vdc)}"
+                                     update=":Datos"
+                                     onclick="reiniciarTema();editarMSJ()" styleClass="btnEliminar" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+
+
+
+    </ui:define>
+
+    <ui:define name="bottom">
+        preba de sonido
+    </ui:define>
+
+
+</ui:composition>

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="icon" href="img/core-img/restaurantes.png" />
+    </h:head>
+    <h:outputStylesheet  library="css" name="estilos.css" />
+
+    <style type="text/css">
+        /** Demo **/
+        .ui-outputlabel {
+            font-weight: bold;
+        }
+
+        .ui-orderlist .ui-orderlist-list {
+            height: auto;
+        }
+    </style>
+
+    <h:body styleClass="body-login">
+
+        <div class="ui-g centrar-texto">
+            <div class="ui-g-12 text-size-40">
+                BONGUSTAIO
+            </div>
+        </div>
+        <div class="ui-g margin-top-100">
+            <div class="ui-g-4"></div>
+            <div class="ui-g-4" >
+                <h:form>
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate />
+                    </p:messages>
+                    <div class="ui-fluid">
+                        <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+                            <p:outputLabel  value="Usuario:"/>
+                            <p:inputText value="#{usuarioController.usuarios.usuario}" required="true"/>
+                            <p:outputLabel value="Password:" />
+                            <p:inputText value="#{usuarioController.usuarios.clave}" type="password" required="true" />
+                            <h:column/>
+                            <p:commandButton  value="Login" action="#{usuarioController.login()}"/>
+                            <h:column/>
+                        </p:panelGrid>
+                    </div>
+                </h:form>
+            </div>
+            <div class="ui-g-4"></div>
+        </div>
+        <div class="ui-g  footer-login">
+            <div class="ui-g-12">
+            </div>
+        </div>
+        <br />
+
+    </h:body>
+</html>
+

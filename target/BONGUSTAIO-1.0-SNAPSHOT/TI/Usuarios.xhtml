@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./newTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <p:outputLabel value="usuarios" styleClass="titulos"></p:outputLabel>
+        <p:growl id="MSJ"/>
+        <h:form id="d">
+            <p:panelGrid columns="3">
+                <p:commandButton  icon="fa fa-fw fa-plus" value="Agregar" oncomplete="PF('usuarios').show()" 
+                                  styleClass="btnEditar" onclick="reiniciarTema();editarMSJ()" style="margin-right:  99%;"/>
+            </p:panelGrid>
+        </h:form>
+        <!---->
+        <p:dialog  widgetVar="usuarios" modal="false" showEffect="clip" resizable="false" header="Usuarios">
+            <p:ajax event="close" listener="#{usuarioController.limpiar()}"   update=":da" />
+            <h:form id='da'>
+                <p:panelGrid columns="2" >
+                    <p:outputLabel value="Usuario" for="txtUsuario"/>
+                    <p:inputText id="txtUsuario" value="#{usuarioController.usuarios.usuario}"/>
+                    <p:outputLabel value="Clave" for="txtClave"/>
+                    <p:inputText id="txtClave" type="password" value="#{usuarioController.usuarios.clave}"/>
+                    <p:outputLabel value="Rol del usuario" for="cboRol"/>
+                    <p:selectOneMenu id="cboRol"  value="#{usuarioController.roles.idrol}">
+                        <f:selectItem itemLabel="Seleccione un rol"></f:selectItem>
+                        <f:selectItems value="#{usuarioController.lsRoles}" var="lsRol"
+                                       itemValue="#{lsRol.idrol}" itemLabel="#{lsRol.rol}" >
+                        </f:selectItems>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Empleado" for="cboEmpleado"/>
+                    <p:selectOneMenu id="cboEmpleado" value="#{usuarioController.empleado.idempleado}">
+                        <f:selectItem itemLabel="Seleccione un empleado"></f:selectItem>
+                        <f:selectItems value="#{usuarioController.lsEmpleado}" var="lsEmp"
+                                       itemValue="#{lsEmp.idempleado}" itemLabel="#{lsEmp.nombres} #{lsEmp.apellidos}" >
+                        </f:selectItems>
+                    </p:selectOneMenu>
+                    <p:commandButton value="Guardar" actionListener="#{usuarioController.guardar()}"
+                                     update=":Datos da :MSJ" oncomplete="PF('usuarios').hide()" icon="ui-icon-mail-open" 
+                                     rendered="#{usuarioController.usuarios.idusuario == 0}"
+                                     onclick="reiniciarTema();editarMSJ()"/>
+                    <p:commandButton value="Editar" actionListener="#{usuarioController.modificar()}"
+                                     update=":Datos da :MSJ" oncomplete="PF('usuarios').hide()" 
+                                     rendered="#{usuarioController.usuarios.idusuario != 0}"
+                                     onclick="reiniciarTema();editarMSJ()"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <h:form id="Datos">
+
+            <p:dataTable  var="p" value="#{usuarioController.listausuario}">
+                <p:column headerText="ID">
+                    <h:outputText  value="#{p.idusuario}"/>
+                </p:column>
+                <p:column headerText="Usuario">
+                    <h:outputText value="#{p.usuario}"/>
+                </p:column>
+                <p:column headerText="Rol">
+                    <h:outputText value="#{p.idtipo.rol}"/>
+                </p:column>
+                <p:column headerText="Empleado">
+                    <h:outputText value="#{p.idempleado.nombres}"/>
+                </p:column>
+                <p:column headerText="Editar">
+                    <p:commandButton value="Modificar"  actionListener="#{usuarioController.leerId(p)}"
+                                     update=":da" oncomplete="PF('usuarios').show()" styleClass="btnEditar" 
+                                     onclick="reiniciarTema();editarMSJ()" />
+                </p:column>
+                <p:column headerText="Eliminar">
+                    <p:commandButton value="Eliminar" actionListener="#{usuarioController.eliminar(p)}"
+                                     update=":Datos" 
+                                     onclick="reiniciarTema();editarMSJ()" styleClass="btnEliminar" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

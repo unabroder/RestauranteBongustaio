@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Facelets Template</title>
+        <h:outputStylesheet  library="css" name="estilos.css" />
+      
+        <link rel="icon" href="img/core-img/restaurantes.png" />
+        <!-- Core Stylesheet -->
+        <link href="../style.css" rel="stylesheet" />
+        <!-- Responsive CSS -->
+        <link href="../css/responsive/responsive.css" rel="stylesheet" />
+        <link href="../resources/css/menu.css" rel="stylesheet" type="text/css"/>
+        <link href="../resources/css/menu.css" rel="stylesheet" type="text/css"/>
+         
+    </h:head>
+
+    <h:body >
+        <div>
+            <div id="top">
+                <ui:insert name="top">
+                    <!-- ****** Superficie Principal de login y iconos ****** -->
+                    <div class="top_header_area">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-10"  >
+                                    <!--  Top Social bar start -->
+                                   <div class="top_social_bar">
+                                        <i id="cambio" >Bongustaio </i>
+                                        &nbsp; <a class="btn-outline-warning" href="#">
+                                        Bienvenido:&nbsp;&nbsp;#{usuarioController.usuarios.usuario}&nbsp;<i class="fa fa-user"></i></a>
+
+                                    </div>
+                                </div>
+
+                                <!-- Nombre de Usuario -->
+                                <div class="col-md-1">
+                                    <div class="signup-search-area d-flex align-items-center justify-content-end">
+                                        <div class="login_register_area d-flex">
+                                            <div class="login" >
+
+                                            </div>
+
+
+                                            <div id="cambioAlex">
+
+                                                <h:form>
+                                                    <h:commandButton value="Cerra Seccion" action="#{usuarioController.cerrar2()}" styleClass=" btn-outline-warning"/>
+                                                </h:form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ****** Fin Superficie Principal de login y iconos ****** -->
+                </ui:insert>
+            </div>
+            <div>
+                <div id="left" style="background-color: #595C5E">
+                    <ui:insert name="left">   
+
+                        <h:form>  
+                            <p:growl>
+                                <p:autoUpdate />
+                            </p:growl>
+                  
+                            <ul>
+                               
+
+                                <li class="block">
+                                    <input type="checkbox" name="item" id="item2" />   
+                                    <label for="item2"><i aria-hidden="true" class="fa fa-product-hunt"></i>Datos Productos </label>
+                                    <ul class="options">
+                                        <li><h:link value="Producto" outcome="/Proveedores/Producto" /></li>
+                                        <li><h:link value="Proveedor" outcome="/Proveedores/Proveedor" /></li>
+                                        <li><h:link value="Inventario" outcome="/Proveedores/Inventario" /></li>
+                                        <li><h:link value="Plato Completo" outcome="/Proveedores/Plato_Completo" /></li>
+                                    </ul>
+                                </li>
+                                
+                            </ul>
+
+
+                        </h:form>
+                    </ui:insert>
+                </div>
+                <div id="content" style="height: 89.7%;width: 80%;" class="left_content">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+            </div>
+
+        </div>
+        <div id="bottom">
+            <ui:insert name="bottom">prueba</ui:insert>
+        </div>
+    </h:body>
+    <headscript>
+        <script src="ponki.js" type="text/javascript"></script>
+        <script>
+            efectoInicio();
+            ponerIcono("img/core-img/restaurantes.png");
+            arreglarBoton("0.#D88A0A.white.redondo", "borde.si.solid.1", "degradado.si.10.black");
+            ponerTema("#F6BF03", "black", "Ocultar", "Mostrar", "0.9", "0.9");
+            arreglarBotonClase("btnEditar.#036fab.white.redondo", "borde.si", "degradado.si.5.black");
+            arreglarBotonClase("btnEliminar.#C14309.white.redondo", "borde.si", "degradado.si.10.black");
+
+        </script>
+       
+    </headscript>
+</html>

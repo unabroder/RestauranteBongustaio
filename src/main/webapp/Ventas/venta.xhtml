@@ -1,0 +1,250 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet  library="css" name="estilos.css" />
+        <!-- Poner Icono -->
+        <link rel="icon" href="img/core-img/restaurantes.png" />
+
+        <!-- Core Stylesheet -->
+        <link href="../style.css" rel="stylesheet" />
+
+        <!-- Responsive CSS -->
+        <link href="../css/responsive/responsive.css" rel="stylesheet" />
+        <f:event type="preRenderView" listener="#{usuarioController.validacion1()}" />
+    </h:head>
+    <h:body>
+        <!--
+         <div id="pattern-switcher">
+             Combo Especial
+         </div>
+         <div id="patter-close">
+             <i class="fa fa-times" aria-hidden="true"></i>
+         </div>-->
+
+        <!-- ****** Superficie Principal de login y iconos ****** -->
+        <div class="top_header_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-5 col-sm-6">
+                        <!--  Top Social bar start -->
+                        <div class="top_social_bar">
+                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-skype" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    <!-- Nombre de Usuario -->
+                    <div class="col-7 col-sm-6">
+                        <div class="signup-search-area d-flex align-items-center justify-content-end">
+                            <div class="login_register_area d-flex">
+                                <div class="login">
+                                    <a class="btn-outline-warning" href="#">Bienvenido:&nbsp;&nbsp;#{usuarioController.usuarios.usuario}</a>
+                                </div>
+                                <br></br>
+                                <div class="login">
+
+                                    <h:form>
+                                        <h:commandButton value="Cerra Seccion" action="#{usuarioController.cerrar2()}" styleClass="btn-outline-warning"/>
+                                    </h:form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ****** Fin Superficie Principal de login y iconos ****** -->
+
+        <!-- ****** Cuerpo de la Pagina de el contenido ****** -->
+        <header class="header_area">
+            <div class="container">
+                <div class="row">
+                    <!-- Logo o letra de el Restaurante-->
+                    <div class="col-12">
+                        <div class="logo_area text-center">
+                            <a href="#" class="yummy-logo">Restaurante Bongustaio</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin de Logo o letra de el Restaurante-->
+                <div class="row">
+                    <div class="col-12">
+                        <nav class="navbar navbar-expand-lg">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#yummyfood-nav" aria-controls="yummyfood-nav" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
+                            <!-- Menu Area Start -->
+                            <div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
+                                <ul class="navbar-nav" id="yummy-nav">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="venta.xhtml">Menu Principal <span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="Venta.xhtml">Venta</a>
+                                    </li>
+                                    <!--<li class="nav-item">
+                                        <h:link class="nav-link"  value="Tabla"/>
+
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Almuerzo</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Cena</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Bebidas</a>
+                                    </li>-->
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- ******FIN Cuerpo de la Pagina de el contenido****** -->
+
+        <!-- ****** Carrusel o Menu de Comida ****** -->
+        <section class="welcome-post-sliders owl-carousel">
+
+            <!-- Primer Single Slide -->
+            <div class="welcome-single-slide">
+                <!-- Post Thumb -->
+                <img src="../img/bg-img/slide-1.jpg" alt="" />
+                <!-- Overlay Text -->
+                <div class="project_title">
+                    <div class="post-date-commnents d-flex">
+                        <a href="#">Desayuno</a>
+                        <a href="#">Precio $5.90</a>
+                    </div>
+                    <a href="#">
+                        <h5>Tortilla,Ahuacate,Cebolla :Frijoles con Queso</h5>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Single Slide -->
+            <div class="welcome-single-slide">
+                <!-- Post Thumb -->
+                <img src="../img/bg-img/slide-2.jpg" alt="" />
+                <!-- Overlay Text -->
+                <div class="project_title">
+                    <div class="post-date-commnents d-flex">
+                        <a href="#">Almuerzo</a>
+                        <a href="#">Precio $8.90</a>
+                    </div>
+                    <a href="#">
+                        <h5>Gurment Especial: Carnet y Chimol</h5>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Single Slide -->
+            <div class="welcome-single-slide">
+                <!-- Post Thumb -->
+                <img src="../img/bg-img/slide-3.jpg" alt="" />
+                <!-- Overlay Text -->
+                <div class="project_title">
+                    <div class="post-date-commnents d-flex">
+                        <a href="#">Postre</a>
+                        <a href="#">Precio $2.60</a>
+                    </div>
+                    <a href="#">
+                        <h5>Variedad de Postre: Diferentes Sabores</h5>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Single Slide -->
+            <div class="welcome-single-slide">
+                <!-- Post Thumb -->
+                <img src="../img/bg-img/slide-4.jpg" alt="" />
+                <!-- Overlay Text -->
+                <div class="project_title">
+                    <div class="post-date-commnents d-flex">
+                        <a href="#">Comida Tipica</a>
+                        <a href="#">Precio $3.90</a>
+                    </div>
+                    <a href="#">
+                        <h5>Descripcion</h5>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Single Slide -->
+            <div class="welcome-single-slide">
+                <!-- Post Thumb -->
+                <img src="../img/bg-img/slide-4.jpg" alt="" />
+                <!-- Overlay Text -->
+                <div class="project_title">
+                    <div class="post-date-commnents d-flex">
+                        <a href="#">Carnet Mixta</a>
+                        <a href="#">Precio $3.80</a>
+                    </div>
+                    <a href="#">
+                        <h5>Descripcion</h5>
+                    </a>
+                </div>
+            </div>
+
+        </section>
+        <!-- ****** Fin del Carrusel ****** -->
+
+        <!-- ****** Categorias Existentes ****** -->
+        <h:form>
+            <section class="categories_area clearfix" id="about">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="single_catagory wow fadeInUp" data-wow-delay=".3s">
+                                <img src="../img/catagory-img/1.jpg" alt=""/>
+                                <div class="catagory-title">
+                                    <h:link value="DESAYUNOS" outcome="ventas?idTipoProducto=1" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="single_catagory wow fadeInUp" data-wow-delay=".6s">
+                                <img src="../img/catagory-img/2.jpg" alt="" />
+                                <div class="catagory-title">
+                                    <h:link value="ALMUERZOS"  outcome="ventas?idTipoProducto=2" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="single_catagory wow fadeInUp" data-wow-delay=".9s">
+                                <img src="../img/catagory-img/3.jpg" alt=""/>
+                                <div class="catagory-title">
+                                    <h:link value="CENAS"  outcome="ventas?idTipoProducto=3" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </h:form>
+        <!-- ****** Fin de las Categorias****** -->
+
+
+    </h:body>
+
+    <!-- ****** Importaciones de JavaScript ****** -->
+
+    <!-- Jquery-2.2.4 js -->
+    <script src="../js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="../js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap-4 js -->
+    <script src="../js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins JS -->
+    <script src="../js/others/plugins.js"></script>
+    <!-- Active JS -->
+    <script src="../js/active.js"></script>
+</html>
+

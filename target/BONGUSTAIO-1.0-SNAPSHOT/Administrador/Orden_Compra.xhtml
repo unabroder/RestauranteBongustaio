@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./newTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content"  >
+        <p:outputLabel value="Orden de compra Adminstrador" styleClass="titulos"></p:outputLabel>
+
+        <p:growl id="MSJ"/>
+
+
+        <h:form id="XD">
+
+            <p:panelGrid columns="4">
+                <p:calendar  value="#{ordenCompraController.fecha.fecha1}"/>
+                <p:calendar value="#{ordenCompraController.fecha.fecha2}"/>
+
+                <p:commandButton value="Consultar por fechas" 
+                                 update=":Datos" styleClass="btnEditar" oncomplete="PF('categoria').hide()" icon="ui-icon-mail-open" style="margin-right:  99%;"
+                                 onclick="reiniciarTema();editarMSJ()"/>
+
+                <p:commandButton  value="Descargar ↓" 
+                                  styleClass="btnEditar" action="#{ordenCompraController.reporte()}"  update=":Datos" onclick="reiniciarTema();editarMSJ()" style="margin-right:  99%;"/>
+
+            </p:panelGrid>
+        </h:form>
+
+        <h:form id="Datos">
+
+            <p:dataTable  value="#{ordenCompraController.lsOrden}" var="orden">
+                <p:column headerText="ID">
+                    <h:outputText value="#{orden.idorden_compra}"/>
+                </p:column>
+                <p:column headerText="Nombre Proveedor">
+                    <h:outputText value="#{orden.idproveedor.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Nombre Sucursal">
+                    <h:outputText value="#{orden.idsucursal.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Nombre Producto">
+                    <h:outputText value="#{orden.idproducto.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Fecha">
+                    <h:outputText value="#{orden.fecha}" >
+                        <f:convertDateTime pattern="dd-MM-YYYY"></f:convertDateTime>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Cantidad">
+                    <h:outputText value="#{orden.cantidad}" />
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+
+
+
+
+    </ui:define>
+
+
+
+
+
+
+</ui:composition>

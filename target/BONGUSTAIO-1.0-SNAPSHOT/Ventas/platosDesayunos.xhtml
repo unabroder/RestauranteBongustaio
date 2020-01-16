@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+         <link rel="icon" href="img/core-img/restaurantes.png" />
+
+        <!-- Core Stylesheet -->
+        <link href="../style.css" rel="stylesheet" />
+
+        <!-- Responsive CSS -->
+        <link href="../css/responsive/responsive.css" rel="stylesheet" />
+    </h:head>
+    <h:body>
+         <!-- ****** Superficie Principal de login y iconos ****** -->
+        <div class="top_header_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-5 col-sm-6">
+                        <!--  Top Social bar start -->
+                        <div class="top_social_bar">
+                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-skype" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    <!-- Nombre de Usuario -->
+                    <div class="col-7 col-sm-6">
+                        <div class="signup-search-area d-flex align-items-center justify-content-end">
+                            <div class="login_register_area d-flex">
+                                <div class="login">
+                                    <a class="btn-outline-dark" href="#">Bienvenido :Nathalia</a>
+                                </div>
+                                <div class="register">
+                                    <a class="btn-outline-primary" href="#">Sing up</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ****** Fin Superficie Principal de login y iconos ****** -->
+
+        <!-- ****** Cuerpo de la Pagina de el contenido ****** -->
+        <header class="header_area">
+            <div class="container">
+                <div class="row">
+                    <!-- Logo o letra de el Restaurante-->
+                    <div class="col-12">
+                        <div class="logo_area text-center">
+                            <a href="#" class="yummy-logo">Restaurante Bongustaio</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin de Logo o letra de el Restaurante-->
+                <div class="row">
+                    <div class="col-12">
+                        <nav class="navbar navbar-expand-lg">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#yummyfood-nav" aria-controls="yummyfood-nav" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
+                            <!-- Menu Area Start -->
+                            <div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
+                                <ul class="navbar-nav" id="yummy-nav">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="venta.xhtml">Regresar Menu<span class="sr-only">(current)</span></a>
+                                    </li>
+                                   <li class="nav-item">
+                                       <a class="nav-link" href="../TI/VentaDetalle.xhtml">Venta Detalle</a>
+                                    </li>
+                                    <!--<li class="nav-item">
+                                         <h:link class="nav-link"  value="Tabla"/>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Almuerzo</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Cena</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Bebidas</a>
+                                    </li>-->
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- ******FIN Cuerpo de la Pagina de el contenido****** -->
+
+        <!-- ****** Catalo de los menus ****** -->
+        <section class="archive-area section_padding_80">
+            <!--agregando ventadetalle -->
+            <p:growl id="MSJ"/>
+        <h:form id="d">
+            <p:panelGrid columns="3">
+                <p:commandButton  icon="fa fa-fw fa-plus" value="Agregar" oncomplete="PF('venta_detalle').show()" 
+                                  styleClass="btnEditar" onclick="reiniciarTema();editarMSJ()" style="margin-right:  99%;"/>
+            </p:panelGrid>
+        </h:form>
+
+        <!---->
+
+        <p:dialog style="margin-top: 10; " widgetVar="venta_detalle" modal="false" showEffect="clip" resizable="false" header="Venta_detalle">
+            <p:ajax event="close" update=":da" listener="#{venta_DetalleController.limpiar()}" />
+            <h:form id='da'>
+                <p:panelGrid columns="2" >
+
+                    <p:outputLabel value="Ingrese el plato pedido" for="cmbPlato"/>
+                    <p:selectOneMenu id="cmbPlato" value="#{venta_DetalleController.pcompleto.idplato_completo}">
+                        <f:selectItem itemLabel="seleccione el plato" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{plato_CompletoController.listapcompleto}" var="pc" itemLabel="#{pc.nombre}" itemValue="#{pc.idplato_completo}" />
+                    </p:selectOneMenu>
+                    
+                    
+                    
+                    <p:outputLabel value="Cantidad" for="txtCantidad"/>
+                    <p:inputText id="txtCantidad" value="#{venta_DetalleController.vdetalle.cantidad}" />
+                    <p:outputLabel value="Estado" for="txtEstado"/>
+                    <p:inputText id="txtEstado" value="#{venta_DetalleController.vdetalle.estado}"/>
+                    <p:outputLabel value="#de orden" for="txtnOrden" />
+                    <p:inputText id="txtnOrden" value="#{venta_DetalleController.vdetalle.codigo}" />
+
+                    <p:commandButton value="Guardar" actionListener="#{venta_DetalleController.insertar()}"
+                                     update=":Datos da :MSJ" oncomplete="PF('venta_detalle').hide()" icon="ui-icon-mail-open" 
+                                     rendered="#{venta_DetalleController.vdetalle.idventa_detalle ==0}"  
+                                     onclick="reiniciarTema();editarMSJ()"/>
+                    <p:commandButton value="Editar" actionListener="#{venta_DetalleController.modificar()}"
+                                     update=":Datos da :MSJ" oncomplete="PF('venta_detalle').hide()" 
+                                     rendered="#{venta_DetalleController.vdetalle.idventa_detalle != 0}"
+                                     onclick="reiniciarTema();editarMSJ()" />
+
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <h:form id="Datos">
+
+            <p:dataTable id="tabla" value="#{venta_DetalleController.listavdetalle}"  var="vd" >
+
+                <p:column headerText="ID">
+                    <h:outputText value="#{vd.idventa_detalle}" />
+                </p:column>
+                <p:column headerText="# de orden">
+                    <h:outputText value="#{vd.codigo}" />
+                </p:column>
+                <p:column headerText="Plato Complemento">
+                    <h:outputText value="#{vd.idplato_completo.nombre}" />
+                </p:column>
+                <p:column headerText="Cantidad">
+                    <h:outputText value="#{vd.cantidad}" />
+                </p:column>
+                <p:column headerText="Estado">
+                    <h:outputText value="#{vd.estado}" />
+                </p:column>
+                
+                <p:column headerText="Editar">
+                    <p:commandButton value="Modificar" actionListener="#{venta_DetalleController.leerId(vd)}"
+                                     update=":da" oncomplete="PF('venta_detalle').show()" styleClass="btnEditar" 
+                                     onclick="reiniciarTema();editarMSJ()" />
+                </p:column>
+                <p:column headerText="Eliminar">
+                    <p:commandButton value="Eliminar" actionListener="#{venta_DetalleController.eliminar(vd)}" update="tabla"
+                                     onclick="reiniciarTema();editarMSJ()" styleClass="btnEliminar" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+       
+            
+            
+            <div class="container">
+                <div class="row">
+
+                    <!-- Single Post -->
+                    <div class="col-12">
+                    <h:form >
+                    <p:dataTable id="tabla" value="#{plato_CompletoController.listapcompleto}" var="pc">
+                        <p:column headerText="ID">
+                            <h:outputText value="#{pc.idplato_completo}" />
+                        </p:column>
+                        <p:column headerText="nombre">
+                            <h:outputText value="#{pc.nombre}" />
+                        </p:column>
+                        <p:column headerText="precio">
+                            <h:outputText value="#{pc.precio}" />
+                        </p:column>
+                        <p:column headerText="catalogo">
+                            <h:outputText value="#{pc.idcatalogo.idtipoproduc.nombre}" />
+                        </p:column>
+                        <p:column headerText="especialidad">
+                            <h:outputText value="#{pc.idespecialidad.nombre}" />
+                        </p:column>
+                        <p:column headerText="estado">
+                            <h:outputText value="#{pc.estado}" />
+                        </p:column>
+                        
+                        <p:column headerText="Editar">
+                            <p:commandButton value="Modificar" actionListener="#{plato_CompletoController.leerId(pc)}"
+                                             oncomplete="PF('plato_completo').show()" styleClass="btnEditar"
+                                             onclick="reiniciarTema();editarMSJ();" />
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:form>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="pagination-area d-sm-flex mt-15">
+                            <nav aria-label="#">
+                                <ul class="pagination">
+                                    <li class="page-item active">
+                                        <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- ****** Fin Catalo de los menus ****** -->
+    </h:body>
+    
+     <!-- ****** Importaciones de JavaScript ****** -->
+
+    <!-- Jquery-2.2.4 js -->
+    <script src="../js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="../js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap-4 js -->
+    <script src="../js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins JS -->
+    <script src="../js/others/plugins.js"></script>
+    <!-- Active JS -->
+    <script src="../js/active.js"></script>
+</html>
+
+

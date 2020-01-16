@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./newTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content"  >
+        <p:outputLabel value="Tabla de Producto" style="margin-left:  35%;font-size: 40px"/>
+
+        <p:growl id="MSJ"/>
+
+
+        <h:form id="Buscar">
+            <p:inputText value="#{productoController.producto.nombre}" placeholder="Ingrese el nombre del Producto" />
+            <p:commandButton value="Buscar" actionListener="#{productoController.buscarProducto(nombre)}" update=":Datos"
+                             onclick="reiniciarTema();editarMSJ()"/>
+
+        </h:form>&nbsp;
+
+        <!---->
+        <p:dialog widgetVar="categoria" modal="false" showEffect="clip" resizable="false" header="Categoria">
+            <p:ajax event="close"  listener="#{productoController.limpiar}"  update=":da" />
+            <h:form id='da'>
+
+                <p:panelGrid columns="2" >
+                    <p:outputLabel value="Nombre" for="txtNombre"/>
+                    <p:inputText id="txtNombre"  value="#{productoController.producto.nombre}"/>
+
+                    <p:outputLabel value="Precio" for="txtPrecio"/>
+                    <p:inputText id="txtPrecio"  value="#{productoController.producto.precio}"/>
+
+                    <p:outputLabel value="Cantidad" for="txtCantidad"/>
+                    <p:inputText id="txtCantidad"  value="#{productoController.producto.cantidad}"/>
+
+                    <p:commandButton value="Editar" actionListener="#{productoController.modificar()}"
+                                     rendered="#{productoController.producto.idproducto !=0}"
+                                     update=":Datos da :MSJ" oncomplete="PF('categoria').hide()" 
+
+                                     onclick="reiniciarTema();editarMSJ()"/>
+
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <h:form id="Datos" >
+
+            <p:dataTable  value="#{productoController.listaproducto2}" var="pro">
+                <p:column headerText="ID2">
+                    <h:outputText value="#{pro.idproducto}" />
+                </p:column>
+                <p:column headerText="Nombre Producto">
+                    <h:outputText value="#{pro.nombre}" />
+                </p:column>
+
+                <p:column headerText="Precio">
+                    <h:outputText value="#{pro.precio}" />
+                </p:column>
+
+                <p:column headerText="Cantidad">
+                    <h:outputText value="#{pro.cantidad}" />
+                </p:column>
+                <p:column headerText="Fecha">
+                    <h:outputText value="#{pro.fechavenc}">
+                        <f:convertDateTime pattern="YYYY-MM-dd" />
+                    </h:outputText>
+                </p:column>
+
+
+
+                <p:column headerText="Editar">
+                    <p:commandButton value="Modificar" actionListener="#{productoController.leerid(pro)}"
+                                     update=":da" oncomplete="PF('categoria').show()" styleClass="btnEditar" 
+                                     onclick="reiniciarTema();editarMSJ()" />
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+        
+       
+
+    </ui:define>
+
+    <ui:define name="bottom">
+
+    </ui:define>
+
+
+
+</ui:composition>

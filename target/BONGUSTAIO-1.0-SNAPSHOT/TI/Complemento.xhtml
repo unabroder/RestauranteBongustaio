@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./newTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+
+
+   
+    <ui:define name="content"  >
+       <p:outputLabel value="Complemento" styleClass="titulos"></p:outputLabel>
+       
+            <p:growl id="MSJ"/>
+           
+            <h:form id="d">
+
+                <p:panelGrid columns="3">
+                   
+                    <p:commandButton  value="+" oncomplete="PF('categoria').show()" 
+                                      styleClass="btnEditar" onclick="reiniciarTema();editarMSJ()" style="margin-right:  99%"/>
+
+                </p:panelGrid>
+            </h:form>
+            
+            <!---->
+            <p:dialog widgetVar="categoria" modal="false" showEffect="clip" resizable="false" header="Categoria">
+                <p:ajax event="close"  listener="#{complementoController.limpiar()}"  update=":da" />
+                <h:form id='da'>
+                    
+                    <p:panelGrid columns="2" >
+                        <p:outputLabel value="Nombre" for="txtNombre"/>
+                        <p:inputText id="txtNombre"  value="#{complementoController.complemento.nombre}"/>
+                        
+                        
+                        <p:outputLabel value="Precio" for="txtPrecio"/>
+                        <p:inputText id="txtPrecio"  value="#{complementoController.complemento.precio}"/>
+                        
+                        
+                        <p:commandButton value="Guardar" actionListener="#{complementoController.insertar()}"
+                                         rendered="#{complementoController.complemento.idcomplemento ==0}"
+                                         update=":Datos da :MSJ" oncomplete="PF('categoria').hide()" icon="ui-icon-mail-open" 
+
+                                         onclick="reiniciarTema();editarMSJ()"/>
+                        <p:commandButton value="Editar" actionListener="#{complementoController.modificar()}"
+                                         rendered="#{complementoController.complemento.idcomplemento !=0}"
+                                         update=":Datos da :MSJ" oncomplete="PF('categoria').hide()" 
+
+                                         onclick="reiniciarTema();editarMSJ()"/>
+
+                    </p:panelGrid>
+                </h:form>
+            </p:dialog>
+
+            <h:form id="Datos">
+
+                <p:dataTable  value="#{complementoController.listaComplemento}" var="compl">
+                    <p:column headerText="ID">
+                        <h:outputText value="#{compl.idcomplemento}" />
+                    </p:column>
+                    <p:column headerText="Nombre Complemento">
+                        <h:outputText value="#{compl.nombre}" />
+                    </p:column>
+                 
+                    <p:column headerText="Precio Complemento">
+                        <h:outputText value="#{compl.precio}" />
+                    </p:column>
+                    <p:column headerText="Editar">
+                        <p:commandButton value="Modificar" actionListener="#{complementoController.leerid(compl)}"
+                                         update=":da" oncomplete="PF('categoria').show()" styleClass="btnEditar" 
+                                         onclick="reiniciarTema();editarMSJ()" />
+                    </p:column>
+                    <p:column headerText="Eliminar">
+                        <p:commandButton value="Eliminar" actionListener="#{complementoController.eliminar(compl)}"
+                                         update=":Datos"
+                                         onclick="reiniciarTema();editarMSJ()" styleClass="btnEliminar" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+
+
+       
+        </ui:define>
+
+        <ui:define name="bottom">
+            preba de sonido
+        </ui:define>
+
+
+</ui:composition>

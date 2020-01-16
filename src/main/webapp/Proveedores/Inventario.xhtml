@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./newTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">&nbsp;
+        <p:outputLabel value="Tabla de Inventarios" style="margin-left:  35%;font-size: 40px"/>
+        <p:growl id="MSJ"/>
+        
+        <h:form id="Buscar">
+            <p:inputText id="txtbuscar" value="#{inventarioController.producto.nombre}" placeholder="Ingrese el nombre del Producto" />
+            <p:commandButton value="Buscar"  actionListener="#{inventarioController.BuscarInventario(inventarioController.producto.nombre)}" update=":Datos"
+                             onclick="reiniciarTema();editarMSJ()"/>
+
+        </h:form>&nbsp;
+        <!---->
+        <p:dialog widgetVar="categoria" modal="false" showEffect="clip" resizable="false" header="Categoria">
+            <p:ajax event="close"  listener="#{inventarioController.limpiar}"  update=":da" />
+            <h:form id='da'>
+
+                <p:panelGrid columns="2" >
+                    <p:outputLabel value="Selecione" for="cmbMenuDelDia"/>
+                    <p:selectOneMenu id="cmbMenuDelDia" value="#{inventarioController.producto.idproducto}">
+                        <f:selectItem itemLabel="seleccione el menu" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{inventarioController.listaproducto}" var="pp" itemLabel="#{pp.nombre}" itemValue="#{pp.idproducto}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Cantidad Entrante" for="txtCanEnt"/>
+                    <p:inputText id="txtCanEnt"  value="#{inventarioController.inventario.cant_entrada}"/>
+                    <p:outputLabel value="Cantidad Disponible" for="txtCanDis"/>
+                    <p:inputText id="txtCanDis"  value="#{inventarioController.inventario.cant_disponible}"/>
+                    <p:commandButton value="Guardar" actionListener="#{inventarioController.insertar()}"
+                                     rendered="#{inventarioController.inventario.idinventario == 0}"
+                                     update=":Datos da :MSJ" oncomplete="PF('categoria').hide()" icon="ui-icon-mail-open" 
+
+                                     onclick="reiniciarTema();editarMSJ()"/>
+                    <p:commandButton value="Editar" actionListener="#{menuDelDia.actualizar()}"
+                                     rendered="#{inventarioController.inventario.idinventario != 0}"
+                                     update=":Datos da :MSJ" oncomplete="PF('categoria').hide()" 
+                                     onclick="reiniciarTema();editarMSJ()"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <h:form id="Datos">
+            <p:dataTable  value="#{inventarioController.listaInventario2}" var="inv">
+                <p:column headerText="ID">
+                    <h:outputText value="#{inv.idinventario}" />
+                </p:column>
+                <p:column headerText="Producto">
+                    <h:outputText value="#{inv.idproducto.nombre}" />
+                </p:column>
+                <p:column headerText="Cantidad Entrada">
+                    <h:outputText value="#{inv.cant_entrada}" />
+                </p:column>
+                <p:column headerText="Cantidad Disponible">
+                    <h:outputText value="#{inv.cant_disponible}" />
+                </p:column>
+
+                <p:column headerText="Editar">
+                    <p:commandButton value="Modificar" actionListener="#{inventarioController.obtenerUno(inv)}"
+                                     update=":da" oncomplete="PF('categoria').show()" styleClass="btnEditar" 
+                                     onclick="reiniciarTema();editarMSJ()" />
+                </p:column>
+                
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="bottom">
+        preba de sonido
+    </ui:define>
+</ui:composition>

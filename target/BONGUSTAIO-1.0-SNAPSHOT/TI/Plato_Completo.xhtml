@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./newTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                
+
+
+   
+    <ui:define name="content"  >
+       
+       <p:outputLabel value="plato completo" styleClass="titulos"></p:outputLabel>
+           <p:growl id="MSJ"/>
+                
+                <h:form id="d">
+                    <p:panelGrid columns="3">
+                        <p:commandButton icon="fa fa-fw fa-plus" value="Agregar" oncomplete="PF('plato_completo').show()"
+                                         styleClass="btnEditar" onclick="reiniciarTema();editarMSJ()" style="margin-right: 99%;"/>
+                    </p:panelGrid>
+                </h:form>
+                
+                <p:dialog style="margin-top: 10;" widgetVar="plato_completo" modal="false" showEffect="clip" resizable="false" header="Plato_completo">
+                    <p:ajax event="close" update=":da" listener="#{plato_CompletoController.limpiar()}" />
+                    <h:form id="da">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Ingrese el nombre del plato" for="txtPlatoCompleto" />
+                            <p:inputTextarea id='txtPlatoCompleto' value="#{plato_CompletoController.pcompleto.nombre}" />
+                            <p:outputLabel value="ingrese el precio" for='txtPrecio' />
+                            <p:inputText id='txtPrecio' value="#{plato_CompletoController.pcompleto.precio}" />
+                            <p:outputLabel value="ingrese el estado" for="txtEstado" />
+                            <p:inputText value='#{plato_CompletoController.pcompleto.estado}' id="txtEstado" />
+                            
+                            <p:outputLabel value="Catalogo" for="cmbCatalogo" />
+                            <p:selectOneMenu id='cmbCatalogo' value="#{plato_CompletoController.catalogo.idcatalogo}">
+                                <f:selectItem itemLabel="seleccione el catalogo" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{catalogoController.listaCatalogo}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.idcatalogo}" />
+                            </p:selectOneMenu>
+                            
+                            <p:outputLabel value='Especialidad' for="cmbEspecialidad" />
+                            <p:selectOneMenu id='cmbEspecialidad' value="#{plato_CompletoController.especialidad.idespecialidad}" >
+                                <f:selectItem itemLabel="seleccione la especialidad" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{especialidadController.listaEspecialidad}" var="e" itemLabel="#{e.nombre}" itemValue="#{e.idespecialidad}" />
+                            </p:selectOneMenu>
+                            
+                            <p:commandButton value="Guardar" actionListener="#{plato_CompletoController.insertar()}"
+                                             update=":Datos da :MSJ" oncomplete="PF('plato_completo').hide()" icon="ui-icon-mail-open"
+                                             rendered="#{plato_CompletoController.pcompleto.idplato_completo == 0}"
+                                             onclick="reiniciarTema();editarMSJ()" />
+                            <p:commandButton value="Editar" actionListener="#{plato_CompletoController.modificar()}"
+                                             update=":Datos da :MSJ" oncomplete="PF('plato_completo').hide()" 
+                                             rendered="#{plato_CompletoController.pcompleto.idplato_completo != 0}"
+                                             onclick="reiniciarTema();editarMSJ()" />
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog>
+              
+                <h:form id='Datos'>
+                    <p:dataTable id="tabla" value="#{plato_CompletoController.listapcompleto}" var="pc">
+                        <p:column headerText="ID">
+                            <h:outputText value="#{pc.idplato_completo}" />
+                        </p:column>
+                        <p:column headerText="nombre">
+                            <h:outputText value="#{pc.nombre}" />
+                        </p:column>
+                        <p:column headerText="precio">
+                            <h:outputText value="#{pc.precio}" />
+                        </p:column>
+                        <p:column headerText="catalogo">
+                            <h:outputText value="#{pc.idcatalogo.nombre}" />
+                        </p:column>
+                        <p:column headerText="especialidad">
+                            <h:outputText value="#{pc.idespecialidad.nombre}" />
+                        </p:column>
+                        <p:column headerText="estado">
+                            <h:outputText value="#{pc.estado}" />
+                        </p:column>
+                        
+                        <p:column headerText="Editar">
+                            <p:commandButton value="Modificar" actionListener="#{plato_CompletoController.leerId(pc)}"
+                                             update=":da" oncomplete="PF('plato_completo').show()" styleClass="btnEditar"
+                                             onclick="reiniciarTema();editarMSJ();" />
+                        </p:column>
+                        <p:column headerText="Eliminar">
+                            <p:commandButton value="Eliminar" actionListener="#{plato_CompletoController.eliminar(pc)}" update="tabla"
+                                             styleClass="btnEliminar" onclick="reiniciarTema();editarMSJ();" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+       
+        </ui:define>
+
+        <ui:define name="bottom">
+            preba de sonido
+        </ui:define>
+
+         
+
+</ui:composition>

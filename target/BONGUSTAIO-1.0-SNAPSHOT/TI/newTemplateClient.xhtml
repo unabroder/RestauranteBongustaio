@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./newTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="content"  >
+        <p:growl id="MSJ"/>
+        <h:form id="d">
+            <p:panelGrid columns="3">
+                <p:commandButton  icon="fa fa-fw fa-plus" value="Agregar" oncomplete="PF('categoria').show()" 
+                                  styleClass="btnEditar" onclick="reiniciarTema();editarMSJ()" style="margin-right:  99%;"/>
+            </p:panelGrid>
+        </h:form>
+        
+        <p:dialog style="margin-top: 10; " widgetVar="categoria" modal="false" showEffect="clip" resizable="false" header="Categoria">
+            <p:ajax event="close" update=":da" />
+            <h:form id='da'>
+                <p:panelGrid columns="2" >
+
+                    <p:outputLabel value="Nombre" for="txtNombre"/>
+                    <p:inputText id="txtNombre" />
+                    <p:outputLabel value="Apellido" for="txtApellido"/>
+                    <p:inputText id="txtApellido" />
+                    <p:outputLabel value="Email" for="txtEmail"/>
+                    <p:inputText id="txtEmail" />
+                    <p:outputLabel value="Telefono" for="txtTelefono"/>
+                    <p:inputText id="txtTelefono" required="true"/>
+
+                    <p:commandButton value="Guardar" 
+                                     update=":Datos da :MSJ" oncomplete="PF('categoria').hide()" icon="ui-icon-mail-open" 
+                                     onclick="reiniciarTema();editarMSJ()"/>
+                    <p:commandButton value="Editar"
+                                     update=":Datos da :MSJ" oncomplete="PF('categoria').hide()" 
+                                     onclick="reiniciarTema();editarMSJ()"/>
+
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+        
+        <h:form id="Datos">
+            <p:dataTable   var="p">
+                <p:column headerText="ID">
+                    <h:outputText  />
+                </p:column>
+                <p:column headerText="Nombre">
+                    <h:outputText />
+                </p:column>
+                <p:column headerText="Apellido">
+                    <h:outputText  />
+                </p:column>
+                <p:column headerText="Email">
+                    <h:outputText />
+                </p:column>
+                <p:column headerText="Telefono">
+                    <h:outputText />
+                </p:column>
+                <p:column headerText="Editar">
+                    <p:commandButton value="Modificar" 
+                                     update=":da" oncomplete="PF('categoria').show()" styleClass="btnEditar" 
+                                     onclick="reiniciarTema();editarMSJ()" />
+                </p:column>
+                <p:column headerText="Eliminar">
+                    <p:commandButton value="Eliminar"
+                                     onclick="reiniciarTema();editarMSJ()" styleClass="btnEliminar" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

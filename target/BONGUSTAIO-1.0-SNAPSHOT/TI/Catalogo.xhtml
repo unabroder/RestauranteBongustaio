@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./newTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <p:outputLabel value="Catalogo" styleClass="titulos"></p:outputLabel>
+        <p:growl id="MSJ"/>
+
+        <h:form id="d">
+
+            <p:panelGrid columns="3">
+
+                <p:commandButton  icon="fa fa-fw fa-plus" value="Agregar" oncomplete="PF('catalogo').show()" 
+                                  styleClass="btnEditar" onclick="reiniciarTema();editarMSJ()" style="margin-right:  99%;"/>
+
+            </p:panelGrid>
+        </h:form>
+
+        <p:dialog style="margin-top: 10; " widgetVar="catalogo" modal="false" showEffect="clip" resizable="false" header="Catalogo">
+            <p:ajax event="close" update=":da" listener="#{catalogoController.limpiar()}"/>
+            <h:form id="da">
+                <p:panelGrid columns="2" >
+
+                    <p:outputLabel value="Nombre" for="txtNombre"/>
+                    <p:inputText id="txtNombre" value="#{catalogoController.catalogo.nombre}"/>
+
+                    <p:outputLabel value="Tipo de producto"/>
+                    <p:selectOneMenu value="#{catalogoController.tipoproducto.idtipoproducto}">
+                        <f:selectItems value="#{catalogoController.listaTipoproducto}" var="x"
+                                       itemLabel="#{x.nombre}" itemValue="#{x.idtipoproducto}"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton value="Guardar" actionListener="#{catalogoController.insertar()}"
+                                     update="tabla da :MSJ" oncomplete="PF('catalogo').hide()" icon="ui-icon-mail-open" 
+                                     rendered="#{catalogoController.catalogo.idcatalogo == 0}"
+                                     onclick="reiniciarTema();editarMSJ()"/>
+                    <p:commandButton value="Editar" actionListener="#{catalogoController.modificar()}"
+                                     update="tabla da :MSJ" oncomplete="PF('catalogo').hide()" 
+                                     rendered="#{catalogoController.catalogo.idcatalogo != 0}"
+                                     onclick="reiniciarTema();editarMSJ()"/>
+
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <h:form id="tabla">
+            <p:dataTable value="#{catalogoController.listaCatalogo}" var="x">
+                <p:column headerText="ID">
+                    <h:outputText value="#{x.idcatalogo}"/>
+                </p:column>
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{x.nombre}"/>
+                </p:column>
+                <p:column headerText="Tipo de producto">
+                    <h:outputText value="#{x.idtipoproduc.nombre}"/>
+                </p:column>
+                <p:column headerText="">
+                    <p:commandButton value="Modificar" actionListener="#{catalogoController.consultarById(x)}"
+                                     update=":da" oncomplete="PF('catalogo').show()" styleClass="btnEditar" 
+                                     onclick="reiniciarTema();editarMSJ()" />
+                </p:column>
+                <p:column headerText="">
+                    <p:commandButton value="Eliminar" actionListener="#{catalogoController.eliminar(x)}" update=":tabla :MSJ"
+                                     styleClass="btnEliminar" onclick="reiniciarTema();editarMSJ()" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet  library="css" name="estilos.css" />
+         <link rel="icon" href="img/core-img/restaurantes.png" />
+
+        <!-- Core Stylesheet -->
+        <link href="style.css" rel="stylesheet" />
+
+        <!-- Responsive CSS -->
+        <link href="css/responsive/responsive.css" rel="stylesheet" />
+        <f:event type="preRenderView" listener="#{usuarioController.validacion2()}" />
+        <f:event type="preRenderView" listener="#{usuarioController.validacionRol()}" />
+    </h:head>
+    
+   <h:body style="background-color: #595C5E">
+        <!-- ****** Superficie Principal de login y iconos ****** -->
+
+        <div class="top_header_area" style="background-color: black">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10"  >
+
+                        <!--  Top Social bar start -->
+                        <div class="top_social_bar" style="padding: 10px; margin-left:  -18%">
+
+                            <a href="../modulos.xhtml" ><i class="fa fa-reply" aria-hidden="false" style="margin-right: 29%;margin-left: -30%;font-size: 20px"></i></a>
+                            <i id="cambio" >Bongustaio </i>
+                            &nbsp; <a class="btn-outline-warning" href="#">
+                                Bienvenido:&nbsp;&nbsp;#{usuarioController.usuarios.usuario}&nbsp;<i class="fa fa-user"></i></a>
+
+                        </div>
+                    </div>
+
+                    <!-- Nombre de Usuario -->
+                    <div class="col-md-1">
+                        <div class="signup-search-area d-flex align-items-center justify-content-end">
+                            <div class="login_register_area d-flex">
+                                <div class="login" >
+
+                                </div>
+
+
+                                <div id="" style="margin-left:  90%;">
+
+                                    <h:form>
+                                        <h:commandButton value="Cerra Seccion" action="#{usuarioController.cerrar2()}" style="border-radius: 20px;"/>
+                                    </h:form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ****** Fin Superficie Principal de login y iconos ****** -->
+        <br/><br/>
+        <p:outputPanel>
+            <h:form>  
+
+                <br/>
+                <div class="ui-g centrar-texto">
+                    <div class="ui-g-4 ">
+                        <!--
+                        <p:graphicImage styleClass="red-input" name="img/icono-mtto.png" />
+                        <br/><br/>
+                        <p:linkButton outcome="/TI/Producto" value="MANTENIMIENTO" style="margin-right:20px;border-radius: 20px" title="Icon Onl">
+                            <f:param name="productId" value="30" />
+                        </p:linkButton> -->
+                        <div class="welcome-single-slide">
+                            <p:graphicImage styleClass="red-input" name="img/icono-mtto.png" />
+                            <div class="project_title2">
+                                <div class="post-date-commnents d-flex">
+
+                                </div>
+                                <a href="TI/Empleado.xhtml">
+                                    <h4 style="padding-top: -8%">Mantenimiento</h4>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="ui-g-4 centrar-contenido" >
+                        <!--
+                        <p:graphicImage name="img/icono-ventas.png" />
+                        <br/><br/>
+                        <p:linkButton outcome="Ventas/venta" value="VENTAS" style="margin-right:20px;border-radius: 20px" title="Icon Onl">
+                            <f:param name="productId" value="30" />
+                        </p:linkButton>-->
+                        <div class="welcome-single-slide">
+                            <p:graphicImage name="img/icono-ventas.png" />
+                            <div class="project_title2">
+                                <div class="post-date-commnents d-flex">
+
+                                </div>
+                                <a href="Ventas/venta.xhtml">
+                                    <h4>Ventas</h4>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="ui-g-4">
+                        <!--
+                        <p:graphicImage name="img/icono-inventario.png" />
+                        <br/><br/>
+                        <p:linkButton outcome="Ventas/venta" value="INVENTARIO" style="margin-right:20px;border-radius: 20px" title="Icon Onl">
+                            <f:param name="productId" value="30" />
+                        </p:linkButton>-->
+                        <div class="welcome-single-slide">
+                            <p:graphicImage name="img/icono-inventario.png" />
+                            <div class="project_title2">
+                                <div class="post-date-commnents d-flex">
+
+                                </div>
+                              
+                                <a href="Proveedores/Producto.xhtml">
+                                    <h4>Inventario</h4>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </h:form>
+        </p:outputPanel>
+    </h:body>
+     <!-- ****** Importaciones de JavaScript ****** -->
+
+    <!-- Jquery-2.2.4 js -->
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap-4 js -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins JS -->
+    <script src="js/others/plugins.js"></script>
+    <!-- Active JS -->
+    <script src="js/active.js"></script>
+</html>
+
