@@ -2,7 +2,6 @@ package controller;
 
 import ejb.InventarioFacadeLocal;
 
-import entity.Inventario;
 import ejb.ProductoFacadeLocal;
 import entity.Inventario;
 import entity.Producto;
@@ -26,13 +25,22 @@ public class InventarioController implements Serializable {
     private Inventario inventario;
     private List<Inventario> listaInventario;
     private List<Inventario> listaInventario2;
-    
+
     @EJB
     private ProductoFacadeLocal productoEJB;
     private Producto producto;
     private List<Producto> listaproducto;
 
+    String nombre;
     String mensaje;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
     //contrustores
     public InventarioController() {
@@ -81,6 +89,16 @@ public class InventarioController implements Serializable {
     }
 
     public List<Inventario> getListaInventario2() {
+        if (BuscarInventario(nombre) == null) {
+            setNombre("");
+            System.out.println(nombre);
+            this.listaInventario2 = inventarioEJB.findAll();
+        } else {
+            System.out.println(nombre);
+            this.listaInventario2 = inventarioEJB.obtenerInv(nombre);
+            System.out.println(listaInventario2);
+        }
+
         return listaInventario2;
     }
 
@@ -88,12 +106,12 @@ public class InventarioController implements Serializable {
         this.listaInventario2 = listaInventario2;
     }
 
-    
     //PostConstructores
     @PostConstruct
     public void init() {
         inventario = new Inventario();
         producto = new Producto();
+ 
         obtenerTodos();
     }
 
@@ -160,5 +178,11 @@ public class InventarioController implements Serializable {
             this.producto = new Producto();
         } catch (Exception e) {
         }
+    }
+
+    public String BuscarInventario(String nombre) {
+        setNombre(nombre);
+        System.out.println("nombre " + this.nombre);
+        return nombre;
     }
 }

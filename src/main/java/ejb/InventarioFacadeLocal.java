@@ -29,5 +29,6 @@ public interface InventarioFacadeLocal {
     List<Inventario> findRange(int[] range);
 
     int count();
-    
+
+    List<Inventario> obtenerInv(String nombre);
 }

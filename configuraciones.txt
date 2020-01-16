@@ -1,0 +1,3 @@
+Preconfiguraciones
+-La persistencia se llama bongustaio
+-La reporteria necesita una carpeta en el disco local C llamada reportes.

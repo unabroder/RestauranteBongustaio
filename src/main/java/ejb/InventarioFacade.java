@@ -6,9 +6,11 @@
 package ejb;
 
 import entity.Inventario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,19 @@ public class InventarioFacade extends AbstractFacade<Inventario> implements Inve
     public InventarioFacade() {
         super(Inventario.class);
     }
-    
+
+    @Override
+    public List<Inventario> obtenerInv(String nombre) {
+        try {
+            Query query = em.createQuery("SELECT inv FROM Inventario inv join inv.idproducto pro where pro.nombre like '%"+nombre+"%'");
+     
+            List<Inventario> lsInventario = query.getResultList();
+            return lsInventario;
+        } catch (Exception e) {
+            Query query = em.createQuery("SELECT inv FROM Inventario inv");
+            List<Inventario> lsInventario = query.getResultList();
+            return lsInventario;
+        }
+
+    }
 }
